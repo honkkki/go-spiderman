@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"regexp"
 	"strconv"
 )
 
@@ -20,8 +21,16 @@ func SpiderPage(i int)  {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println("爬取到的网页内容:", result)
-
+	//fmt.Println("爬取到的网页内容:", result)
+	res := regexp.MustCompile(`<h1 class="dp-b"><a href="(?s:(.*?))"`)
+	if res == nil {
+		return
+	}
+	joyUrl := res.FindAllStringSubmatch(result, -1)
+	//fmt.Println(joyUrl)
+	for _, data := range joyUrl {
+		fmt.Println(data[1])
+	}
 
 }
 
@@ -57,5 +66,5 @@ func DoWork(start, end int)  {
 
 func main()  {
 
-	DoWork(1, 2)
+	DoWork(1, 1)
 }
