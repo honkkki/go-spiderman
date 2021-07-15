@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 type Job struct {
@@ -51,7 +52,6 @@ func spider(url string, rc resChan) {
 			close(rc)
 		}
 		mu.Unlock()
-
 	})
 }
 
@@ -63,15 +63,18 @@ func worker(jc jobChan, rc resChan) {
 	}
 }
 
-func run(jc jobChan, rc resChan) {
-	for i := 0; i < 5; i++ {
+// run 根据用户定义开启固定数量的goroutine.
+func run(jc jobChan, rc resChan, core int) {
+	for i := 0; i < core; i++ {
 		go worker(jc, rc)
 	}
 }
 
 func printRes(rc resChan) {
+	var num int
 	for res := range rc {
-		fmt.Println(res.Id, res.title)
+		num++
+		fmt.Println(res.Id, res.title, num)
 	}
 	done<- struct{}{}
 }
@@ -79,10 +82,12 @@ func printRes(rc resChan) {
 func main() {
 	jc := make(jobChan, 10)
 	rc := make(resChan, 250)
-	//start := time.Now()
+	core := 10
+	start := time.Now()
 
-	wg.Add(5)
-	run(jc, rc)
+	wg.Add(core)
+	// 限制goroutine数防止被网站封ip
+	run(jc, rc, core)
 	go printRes(rc)
 	for i := 0; i < 10; i++ {
 		url := "https://movie.douban.com/top250?start=" + strconv.Itoa(i*25) + "&filter="
@@ -94,13 +99,12 @@ func main() {
 		jc <- job
 	}
 
-	fmt.Println(runtime.NumGoroutine())
+	fmt.Println("goroutine num:", runtime.NumGoroutine())
 	close(jc)
 	wg.Wait()
 
 	// 等待打印完毕
 	<-done
-	fmt.Println(num)
-	//used := time.Since(start)
-	//fmt.Println("used time:", used)
+	used := time.Since(start)
+	fmt.Println("used time:", used)
 }
