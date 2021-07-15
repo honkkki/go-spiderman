@@ -13,7 +13,7 @@ import (
 
 var wg2 sync.WaitGroup
 
-func spider2(url string)  {
+func spider2(url string) {
 	defer wg2.Done()
 	doc := utils.FetchQuery(url)
 	if doc == nil {
@@ -22,17 +22,17 @@ func spider2(url string)  {
 
 	doc.Find("ol.grid_view li").Find(".hd").Each(func(i int, selection *goquery.Selection) {
 		imgUrl, _ := selection.Find("a").Attr("href")
-		title := selection.Find(".title").Eq(00).Text()
+		title := selection.Find(".title").Eq(0).Text()
 		id := strings.Split(imgUrl, "/")[4]
 		fmt.Println(title, id)
 	})
 }
 
-func main()  {
+func main() {
 	start := time.Now()
 	for i := 0; i < 10; i++ {
 		wg2.Add(1)
-		go spider2("https://movie.douban.com/top250?start=" + strconv.Itoa(i) + "&filter=")
+		go spider2("https://movie.douban.com/top250?start=" + strconv.Itoa(i*25) + "&filter=")
 	}
 
 	wg2.Wait()

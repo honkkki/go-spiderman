@@ -31,7 +31,7 @@ func main()  {
 	start := time.Now()
 	for i := 0; i < 10; i++ {
 		wg.Add(1)
-		go spider1("https://movie.douban.com/top250?start=" + strconv.Itoa(i) + "&filter=")
+		go spider1("https://movie.douban.com/top250?start=" + strconv.Itoa(i*25) + "&filter=")
 	}
 
 	wg.Wait()
