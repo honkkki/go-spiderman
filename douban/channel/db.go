@@ -27,7 +27,7 @@ type resChan chan Res
 
 var (
 	mu   sync.Mutex
-	num  int
+	num  uint16
 	done = make(chan struct{})
 	wg   sync.WaitGroup
 )
