@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/go-spiderman/model"
 	"github.com/go-spiderman/utils"
 	"log"
 	"strconv"
@@ -24,11 +25,21 @@ func spider2(url string) {
 		imgUrl, _ := selection.Find("a").Attr("href")
 		title := selection.Find(".title").Eq(0).Text()
 		id := strings.Split(imgUrl, "/")[4]
-		fmt.Println(title, id)
+
+		// save to db
+		data := &model.Movie{
+			MovieNo: id,
+			Title:   title,
+		}
+
+		model.CreateMovie(data)
+		//fmt.Println(title, id)
 	})
 }
 
 func main() {
+	model.InitDB("../../config.ini")
+	model.DB.Exec("TRUNCATE TABLE movie;")
 	start := time.Now()
 	for i := 0; i < 10; i++ {
 		wg2.Add(1)

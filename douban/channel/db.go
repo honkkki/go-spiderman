@@ -27,9 +27,9 @@ type resChan chan Res
 
 var (
 	mu   sync.Mutex
-	num  int
+	num  uint16
 	done = make(chan struct{})
-	wg sync.WaitGroup
+	wg   sync.WaitGroup
 )
 
 func spider(url string, rc resChan) {
@@ -70,13 +70,14 @@ func run(jc jobChan, rc resChan, core int) {
 	}
 }
 
+
 func printRes(rc resChan) {
 	var num int
 	for res := range rc {
 		num++
 		fmt.Println(res.Id, res.title, num)
 	}
-	done<- struct{}{}
+	done <- struct{}{}
 }
 
 func main() {

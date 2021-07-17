@@ -1,3 +1,5 @@
-/vendor
 .idea
-/images
+./images
+config.ini
+
+
