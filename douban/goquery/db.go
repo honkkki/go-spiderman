@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/go-spiderman/model"
-	"github.com/go-spiderman/utils"
+	"github.com/honkkki/go-spiderman/model"
+	"github.com/honkkki/go-spiderman/utils"
 	"log"
 	"strconv"
 	"strings"

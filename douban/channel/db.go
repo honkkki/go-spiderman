@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/go-spiderman/utils"
+	"github.com/honkkki/go-spiderman/utils"
 	"log"
 	"runtime"
 	"strconv"

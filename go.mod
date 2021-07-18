@@ -1,4 +1,4 @@
-module github.com/go-spiderman
+module github.com/honkkki/go-spiderman
 
 go 1.15
 

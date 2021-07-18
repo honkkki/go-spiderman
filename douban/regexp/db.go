@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-spiderman/utils"
+	"github.com/honkkki/go-spiderman/utils"
 	"regexp"
 	"strconv"
 	"strings"
@@ -12,7 +12,7 @@ import (
 
 var wg sync.WaitGroup
 
-func spider1(url string)  {
+func spider1(url string) {
 	defer wg.Done()
 	body := utils.Fetch(url)
 	body = strings.Replace(body, "\n", "", -1)
@@ -27,7 +27,7 @@ func spider1(url string)  {
 	}
 }
 
-func main()  {
+func main() {
 	start := time.Now()
 	for i := 0; i < 10; i++ {
 		wg.Add(1)

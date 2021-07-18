@@ -11,7 +11,7 @@
 ```shell
 go mod download
 cd cli/
-go go run gsp.go
+go run gsp.go
 ```
 
 - TODO...
