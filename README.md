@@ -10,8 +10,8 @@
 - 获取v2ex今日热帖
 ```shell
 go mod download
-cd cli/
-go run gsp.go
+cd cmd/gsp/
+go run main.go
 ```
 
 - TODO...
