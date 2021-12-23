@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/honkkki/go-spiderman/utils"
+	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -16,7 +17,7 @@ var banner = `
 |___  ||_____||   __|
 |_____|       |__|
 
-🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍
+🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭
 
 `
 
@@ -43,6 +44,10 @@ func spinner(delay time.Duration) {
 // worker 耗时操作
 func worker() {
 	doc := utils.FetchQuery("https://www.v2ex.com")
+	if doc == nil {
+		log.Fatal("oops! fetch url fail...")
+	}
+
 	doc.Find("#Rightbar").Find("#TopicsHot").Find(".cell").Each(func(i int, selection *goquery.Selection) {
 		if i!=0 {
 			fmt.Println()
