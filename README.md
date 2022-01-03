@@ -1,4 +1,4 @@
-gs# go-spiderman
+# go-spiderman
 :whale2:
 
 🚀🚀🚀
