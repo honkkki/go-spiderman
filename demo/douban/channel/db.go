@@ -70,7 +70,6 @@ func run(jc jobChan, rc resChan, core int) {
 	}
 }
 
-
 func printRes(rc resChan) {
 	var num int
 	for res := range rc {
