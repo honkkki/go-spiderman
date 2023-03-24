@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
-	"github.com/honkkki/go-spiderman/utils"
 	"log"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/PuerkitoBio/goquery"
+	"github.com/honkkki/go-spiderman/utils"
 )
 
 var banner = `
@@ -26,7 +27,7 @@ func spinner(delay time.Duration) {
 
 	go func() {
 		worker()
-		finish<- struct{}{}
+		finish <- struct{}{}
 	}()
 
 	for {
@@ -49,7 +50,7 @@ func worker() {
 	}
 
 	doc.Find("#Rightbar").Find("#TopicsHot").Find(".cell").Each(func(i int, selection *goquery.Selection) {
-		if i!=0 {
+		if i != 0 {
 			fmt.Println()
 			fmt.Println("#" + strconv.Itoa(i))
 			title := selection.Find(".item_hot_topic_title").Text()
